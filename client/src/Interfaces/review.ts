@@ -3,6 +3,8 @@ export interface Review {
     product_id : string ;
     reviewer_id : string ;
     description : string ;
+    createdAt : Date
+    updatedAt : Date
     date ? : string  
 }
 

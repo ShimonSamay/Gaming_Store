@@ -14,6 +14,4 @@ export interface UserAction {
   payload?: User;
 }
 
-export interface newUser {
-  [prop: string]: string;
-}
+

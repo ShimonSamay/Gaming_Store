@@ -1,17 +1,17 @@
 import "./Video-Banner.css";
 const video = require("../../../Media/banner.mp4");
 
-const VideoBanner = () => {
+const VideoBanner = ({setLoginScreen} : { setLoginScreen:React.MouseEventHandler<HTMLButtonElement>}) => {
   return (
     <section className="home_banner">
       <video autoPlay loop muted>
-        <source src={video} />
+        <source src={video}/>
       </video>
       <section className="text_banner_container">
         <p>Welcome To Gstore</p>
         <p>The best online gaming store</p>
         <section>
-          <button>Explore now</button>
+          <button onClick={setLoginScreen}>Explore now</button>
         </section>
       </section>
     </section>

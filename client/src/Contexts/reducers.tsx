@@ -1,4 +1,4 @@
-import { createContext, useReducer , ReactNode } from "react";
+import { createContext, useReducer , ReactNode, FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { usersReducer } from "../Reducers/user";
 import { gamesReducer } from "../Reducers/games";
@@ -8,7 +8,32 @@ import { User} from "../Interfaces/user";
 import { Game } from "../Interfaces/game";
 import { Review } from "../Interfaces/review";
 
-export const reducersContext = createContext<any>("");
+interface StateTypes {
+  user:User ;
+  userDispatch : Function ;
+  games : Game[] ;
+  gamesDispatch : Function ;
+  favorites : any ;
+  favoritesDispatch : Function ;
+  reviews : Review[] ;
+  reviewDispatch : Function ;
+  appNavigator : Function
+}
+
+const contextDefaultValue : StateTypes = {
+  user : { loggedIn:false } ,
+  userDispatch : () => {} ,
+  games : []  ,
+  gamesDispatch : () => [] ,
+  favorites : [] ,
+  favoritesDispatch : () => [] ,
+  reviews : [] ,
+  reviewDispatch : () => [] ,
+  appNavigator : () => ""
+} 
+
+
+export const reducersContext = createContext<StateTypes>(contextDefaultValue);
 
 const ReducersProvider = ( {children} : {children:ReactNode} ) => {
   const [user, userDispatch] = useReducer( usersReducer , {loggedIn:false} );
@@ -16,13 +41,15 @@ const ReducersProvider = ( {children} : {children:ReactNode} ) => {
   const [favorites , favoritesDispatch] = useReducer( favoritesReducer , []);
   const [reviews , reviewDispatch] = useReducer( reviewsReducer ,[])
   const appNavigator = useNavigate();
-  const globalStates : any = {
+
+  const globalStates : StateTypes = {
     user , userDispatch ,
     games , gamesDispatch ,
     favorites , favoritesDispatch , 
     reviews  , reviewDispatch , 
     appNavigator
   };
+  
   return (
     <reducersContext.Provider value={globalStates}>
        {children}
