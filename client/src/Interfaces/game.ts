@@ -1,11 +1,13 @@
 export interface Game {
-  name: string;
-  price: Number;
-  image: string;
-  category: string;
-  description: string;
-  sellerName: string;
-  seller_id: string;
+  _id? : string ;
+  name?: string;
+  price?: Number;
+  quantity : Number
+  image?: string;
+  category?: string;
+  description?: string;
+  sellerName?: string;
+  seller_id?: string;
 }
 
 export interface GameData {

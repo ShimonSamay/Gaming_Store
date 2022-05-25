@@ -1,7 +1,7 @@
 const reviewsRouter = require("express").Router();
-const {getReviews ,addReview ,updateReview ,deleteReview} = require("../Controllers/reviews")
+const {getReviewsByProductId ,addReview ,updateReview ,deleteReview} = require("../Controllers/reviews")
 
-reviewsRouter.get("/" , getReviews);
+reviewsRouter.get("/:id" , getReviewsByProductId);
 reviewsRouter.post("/" , addReview);
 reviewsRouter.put("/:id" , updateReview);
 reviewsRouter.delete("/:id" ,deleteReview);

@@ -1,13 +1,13 @@
 const Reviews = require("../Models/reviews");
 
-const getReviews = async (req,res) => {
-  try {
-    const reviewsData = await Reviews.find()
+const getReviewsByProductId = async (req,res) => {
+  try { 
+    const reviewsData = await Reviews.find({ product_id:req.params.id })
     if(reviewsData.length) return res.status(200).json({ success:true , reviewsData })
     return res.status(500).json({ success:false , message:"No reviews" })
   }
   catch (error) {
-      return res.status(500).json({ success:false , message:"Server error ..." })
+      return res.status(500).json({ success:false , message:"Server error ..."})
   }
 }
 
@@ -45,7 +45,7 @@ const deleteReview = async (req,res) => {
 }
 
 module.exports = {
-    getReviews ,
+   getReviewsByProductId ,
     addReview ,
     updateReview ,
     deleteReview

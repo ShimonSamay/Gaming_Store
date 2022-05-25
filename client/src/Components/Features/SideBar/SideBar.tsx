@@ -1,14 +1,15 @@
 import { useContext } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { reducersContext } from "../../../Contexts/reducers";
+import { globalStatesContext } from "../../../Contexts/reducers";
 import "./SideBar.css";
 
-const SideBar = () => {
-  const { user } = useContext(reducersContext);
+const SideBar = () : JSX.Element => {
+
+  const { user } = useContext(globalStatesContext);
 
   return (
-    <section style={{ width: "12vw", height: "100vh" }}>
+    <section className="sidebar_container">
       <ProSidebar>
         <Menu className="menu">
           <MenuItem>LOGIN</MenuItem>

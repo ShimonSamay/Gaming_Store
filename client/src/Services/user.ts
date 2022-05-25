@@ -2,7 +2,7 @@ import { User } from "../Interfaces/user";
 import { confirmPasswords, extractJwtPayload, fetchSettings, LoginResponse, RegisterResponse } from "../Utils/util";
 import { RefObject } from "react"
 
-const baseUrl: string = "http://localhost:5500/users";
+const baseUrl : string = "http://localhost:5500/users";
 
 export const validateRegistration = async (user: User , setResponse:Function  , inputRef:RefObject<HTMLInputElement> , openPopUp:Function) : Promise < RegisterResponse | unknown > => {
   try {

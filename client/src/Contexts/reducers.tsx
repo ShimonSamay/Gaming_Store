@@ -4,56 +4,46 @@ import { usersReducer } from "../Reducers/user";
 import { gamesReducer } from "../Reducers/games";
 import { favoritesReducer } from "../Reducers/favorites";
 import { reviewsReducer } from "../Reducers/reviews";
-import { User} from "../Interfaces/user";
-import { Game } from "../Interfaces/game";
-import { Review } from "../Interfaces/review";
+import { GlobalStateTypes } from "../Utils/util";
 
-interface StateTypes {
-  user:User ;
-  userDispatch : Function ;
-  games : Game[] ;
-  gamesDispatch : Function ;
-  favorites : any ;
-  favoritesDispatch : Function ;
-  reviews : Review[] ;
-  reviewDispatch : Function ;
-  appNavigator : Function
-}
-
-const contextDefaultValue : StateTypes = {
+const initialStatesValue : GlobalStateTypes = {
   user : { loggedIn:false } ,
-  userDispatch : () => {} ,
+  userDispatch : () => {} , 
   games : []  ,
   gamesDispatch : () => [] ,
   favorites : [] ,
   favoritesDispatch : () => [] ,
   reviews : [] ,
   reviewDispatch : () => [] ,
-  appNavigator : () => ""
+  appNavigator : () => null
 } 
 
+interface ProviderPropsType {
+  children : ReactNode
+}
 
-export const reducersContext = createContext<StateTypes>(contextDefaultValue);
+export const globalStatesContext = createContext<GlobalStateTypes>(initialStatesValue);
 
-const ReducersProvider = ( {children} : {children:ReactNode} ) => {
-  const [user, userDispatch] = useReducer( usersReducer , {loggedIn:false} );
-  const [games , gamesDispatch] = useReducer( gamesReducer , []);
-  const [favorites , favoritesDispatch] = useReducer( favoritesReducer , []);
-  const [reviews , reviewDispatch] = useReducer( reviewsReducer ,[])
-  const appNavigator = useNavigate();
+const ReducersProvider : FC<ProviderPropsType> = ( { children } : { children:ReactNode } ) : JSX.Element => {
 
-  const globalStates : StateTypes = {
+  const [user, userDispatch] = useReducer(usersReducer , initialStatesValue.user);
+  const [games , gamesDispatch] = useReducer(gamesReducer , initialStatesValue.games);
+  const [favorites , favoritesDispatch] = useReducer(favoritesReducer , initialStatesValue.favorites);
+  const [reviews , reviewDispatch] = useReducer(reviewsReducer , initialStatesValue.reviews)
+  const appNavigator = useNavigate(); 
+
+  const globalStates : GlobalStateTypes = {
     user , userDispatch ,
     games , gamesDispatch ,
-    favorites , favoritesDispatch , 
-    reviews  , reviewDispatch , 
+    favorites , favoritesDispatch ,
+    reviews , reviewDispatch ,
     appNavigator
-  };
-  
+  }
+
   return (
-    <reducersContext.Provider value={globalStates}>
+    <globalStatesContext.Provider value={globalStates}>
        {children}
-    </reducersContext.Provider>
+    </globalStatesContext.Provider>
   )
 };
 

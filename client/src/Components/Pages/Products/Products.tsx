@@ -1,7 +1,10 @@
-const Products = () => {
+import Games from "../../Features/Games/Games";
+
+
+const Products = () : JSX.Element => {
   return (
-      <p>products page</p>
+       <Games/>
   )
 };
 
-export default Products ;
+export default Products;

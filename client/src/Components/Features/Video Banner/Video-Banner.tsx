@@ -1,7 +1,8 @@
+import { MouseEventHandler } from "react";
 import "./Video-Banner.css";
 const video = require("../../../Media/banner.mp4");
 
-const VideoBanner = ({setLoginScreen} : { setLoginScreen:React.MouseEventHandler<HTMLButtonElement>}) => {
+const VideoBanner = ({ setLoginScreen } : { setLoginScreen:MouseEventHandler<HTMLButtonElement> }) : JSX.Element => {
   return (
     <section className="home_banner">
       <video autoPlay loop muted>

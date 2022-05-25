@@ -1,34 +1,35 @@
-import { FormEvent, useContext, useState , ChangeEvent, useRef } from "react";
+import { FormEvent, useContext, useState , ChangeEvent, useRef, MouseEventHandler } from "react";
 import { loginAction } from "../../../Actions/user";
-import { reducersContext } from "../../../Contexts/reducers";
+import { globalStatesContext } from "../../../Contexts/reducers";
 import { Dynamic } from "../../../Interfaces/dynamic";
 import { signUser } from "../../../Services/user";
 import { getInputValue, LoginResponse } from "../../../Utils/util";
 import "./Login.css";
 
-const Login = ({ setRegisterScreen }:{ setRegisterScreen:React.MouseEventHandler<HTMLButtonElement>}) => {
+const Login = ({ setRegisterScreen } : { setRegisterScreen:MouseEventHandler<HTMLButtonElement> }) : JSX.Element => {
 
   const [details , setDetails] = useState<Dynamic>({});
-
-  const { userDispatch } = useContext(reducersContext);
+ 
+  const { userDispatch , appNavigator , user } = useContext(globalStatesContext);
 
   const [response , setResponse] = useState<LoginResponse>({success:false , message:""});
 
-  const popUpRef = useRef<any>(null)
+  const popUpRef = useRef<any>(null);
 
-  const getUserDetails = (e:ChangeEvent<HTMLInputElement>):void => {
+  const getUserDetails = (e:ChangeEvent<HTMLInputElement>) : void => {
     getInputValue(e,details);
-  }
+  };
 
-  const popUpHandler = ():void => {  
+  const popUpHandler = () : void => {  
     popUpRef.current &&  popUpRef.current.open ? popUpRef.current.close() : popUpRef.current.showModal() ;
-  }
+  };
 
-  const signUp = (e:FormEvent<HTMLFormElement>):void => {
+  const signUp = (e:FormEvent<HTMLFormElement>) : void => {
     e.preventDefault();
     setDetails({...details});  
     signUser(details , setResponse , userDispatch , loginAction , popUpHandler);
-  }
+    appNavigator("/products");
+  };
 
   
   return (

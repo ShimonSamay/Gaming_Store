@@ -2,7 +2,7 @@ import { Review, ReviewsAction } from "../Interfaces/review" ;
 
 export const reviewsReducer = ( state:Review[] , action:ReviewsAction ) : Review[] => {
 
-  const {type , payload} : {type:string , payload:Review} = action ;
+  const { type , payload } : { type:string , payload:Review } = action ;
 
   switch (type) {
       case "ADD" : 

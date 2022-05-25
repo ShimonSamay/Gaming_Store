@@ -1,0 +1,8 @@
+.cards_games_container {
+  width: 85vw;
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: white;
+}

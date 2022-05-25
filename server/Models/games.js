@@ -30,6 +30,10 @@ const Games = new mongoose.Schema(
       type: String,
       required: true,
     },
+    quantity : {
+      type:Number ,
+      default : 0
+    }
   },
   { timestamps: true }
 );

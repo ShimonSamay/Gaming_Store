@@ -1,14 +1,14 @@
 import { ChangeEvent, FormEvent, useState , useRef , useContext } from "react";
 import { loginAction } from "../../../Actions/user";
-import { reducersContext } from "../../../Contexts/reducers";
+import { globalStatesContext } from "../../../Contexts/reducers";
 import { Dynamic } from "../../../Interfaces/dynamic";
 import { signUser, validateRegistration } from "../../../Services/user";
 import { getInputValue, LoginResponse, RegisterResponse } from "../../../Utils/util";
 import "./Register.css";
 
-const Register = () => {
+const Register = () : JSX.Element => {
     
-    const { userDispatch } = useContext(reducersContext);
+    const { userDispatch } = useContext(globalStatesContext);
 
     const [newUser , setNewUser] = useState<Dynamic>({});
 
@@ -18,23 +18,23 @@ const Register = () => {
 
     const [response , setResponse] = useState< RegisterResponse | LoginResponse >({success:false , message:""});
     
-    const getUserDetails = (e:ChangeEvent<HTMLInputElement>):void => {
+    const getUserDetails = (e:ChangeEvent<HTMLInputElement>) : void => {
       getInputValue(e,newUser);
-    }
+    };
 
-    const popUpHandler = ():void => {  
+    const popUpHandler = () : void => {  
       popUpRef.current &&  popUpRef.current.open ? popUpRef.current.close () : popUpRef.current.showModal() ;
-    }
+    };
 
-    const register = (e:FormEvent<HTMLFormElement>):void => {
+    const register = (e:FormEvent<HTMLFormElement>) : void => {
         e.preventDefault();
         setNewUser({...newUser});               
         validateRegistration(newUser , setResponse , confirmInputRef , popUpHandler)
-    }
+    };
 
-    const enterNewUser = () => {
+    const enterNewUser = () : void => {
       signUser(newUser, setResponse , userDispatch, loginAction)
-    }
+    };
 
     
   return (
